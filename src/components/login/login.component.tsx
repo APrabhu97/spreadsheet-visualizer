@@ -56,14 +56,5 @@ export default function LoginComponent(props: Props) {
       Login
     </Button>
   );
-  /*   const loadSpreadsheetButton = (
-    <Button
-      variant="contained"
-      color="primary"
-      onClick={() => loadSpreadsheet()}
-    >
-      Load Spreadsheet
-    </Button>
-  ); */
   return <div>{isLoggedIn ? null : loginButton}</div>;
 }
