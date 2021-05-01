@@ -1,0 +1,21 @@
+@import "./../../styles.scss";
+
+.header-component {
+  background: $headerColor;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.app-name {
+  margin-left: 12px;
+  font-weight: bold;
+  color: white;
+  font-size: xx-large;
+  align-self: flex-end;
+}
+
+.login-button {
+    align-self: flex-end;
+    padding: 5px;
+}
