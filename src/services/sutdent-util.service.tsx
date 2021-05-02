@@ -1,37 +1,44 @@
-import { RoomType, Student, StudentDetails } from "../models/student.model";
+import { Student, StudentDetails } from "../models/student.model";
 import { SpreadsheetCell, SpreadsheetRow } from "./spreadsheet.model";
 
 export class StudentUtilService {
-  private static getCellData(cell: SpreadsheetCell): string {
-    return cell ? (cell.formattedValue ? cell.formattedValue : "") : "";
+  private static getCellValue(cell: SpreadsheetCell): string {
+    return cell ? (cell.formattedValue ? cell.formattedValue.trim() : "") : "";
+  }
+  private static getCellValues(cell: SpreadsheetCell): string[] {
+    return cell
+      ? cell.formattedValue
+        ? cell.formattedValue.split(",").map((option) => option.trim())
+        : []
+      : [];
   }
 
   private static getStudentDetails(cells: SpreadsheetCell[]): StudentDetails {
     return {
-        gender: this.getCellData(cells[4]),
-      finalizedUic: this.getCellData(cells[5]),
-      commuteTimeOptions: this.getCellData(cells[6]).split(","),
-      roomType: this.getCellData(cells[7]),
-      roommateNumberPreferences: this.getCellData(cells[8]).split(","),
-      roomNumberPreferences: this.getCellData(cells[9]).split(","),
-      mixedHouse: this.getCellData(cells[10]),
-      roommateSmokes: this.getCellData(cells[11]),
-      roommateDrinks: this.getCellData(cells[12]),
-      knowsCooking: this.getCellData(cells[13]),
-      foodType: this.getCellData(cells[14]),
-      roommateLanguagePreference: this.getCellData(cells[16]),
-      origin: this.getCellData(cells[17]).split(",")[0],
-      gradYear: this.getCellData(cells[17]).split(",")[1],
-      hobbies: this.getCellData(cells[18]),
-      extraInfo: this.getCellData(cells[19]),
-      visaLocation: this.getCellData(cells[20]),
-      company: this.getCellData(cells[23]).split(",")[0],
-      experience: this.getCellData(cells[23]).split(",")[1],
-      intrestedAreas: this.getCellData(cells[24]),
-      socialMediaLinks: this.getCellData(cells[25]),
-      budget: this.getCellData(cells[28]),
-      smoke: this.getCellData(cells[29]),
-      drink: this.getCellData(cells[30]),
+      gender: this.getCellValue(cells[4]),
+      finalizedUic: this.getCellValue(cells[5]),
+      commuteTimeOptions: this.getCellValues(cells[6]),
+      roomType: this.getCellValue(cells[7]),
+      roommateNumberPreferences: this.getCellValues(cells[8]),
+      roomNumberPreferences: this.getCellValues(cells[9]),
+      mixedHouse: this.getCellValue(cells[10]),
+      roommateSmokes: this.getCellValue(cells[11]),
+      roommateDrinks: this.getCellValue(cells[12]),
+      knowsCooking: this.getCellValue(cells[13]),
+      foodType: this.getCellValue(cells[14]),
+      roommateLanguagePreference: this.getCellValue(cells[16]),
+      origin: this.getCellValues(cells[17])[0],
+      gradYear: this.getCellValues(cells[17])[1],
+      hobbies: this.getCellValue(cells[18]),
+      extraInfo: this.getCellValue(cells[19]),
+      visaLocation: this.getCellValue(cells[20]),
+      company: this.getCellValues(cells[23])[0],
+      experience: this.getCellValues(cells[23])[1],
+      intrestedAreas: this.getCellValue(cells[24]),
+      socialMediaLinks: this.getCellValue(cells[25]),
+      budget: this.getCellValue(cells[28]),
+      smoke: this.getCellValue(cells[29]),
+      drink: this.getCellValue(cells[30]),
     };
   }
 
@@ -45,10 +52,10 @@ export class StudentUtilService {
         const values = row.values;
         if (idx !== 0) {
           const student: Student = {
-            email: this.getCellData(values[1]),
-            name: this.getCellData(values[2]),
-            phone: this.getCellData(values[3]),
-            gender: this.getCellData(values[4]),
+            email: this.getCellValue(values[1]),
+            name: this.getCellValue(values[2]),
+            phone: this.getCellValue(values[3]),
+            gender: this.getCellValue(values[4]),
             details: this.getStudentDetails(values),
           };
           students.push(student);

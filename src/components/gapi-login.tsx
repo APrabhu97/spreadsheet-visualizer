@@ -78,7 +78,6 @@ export const GoogleLogin = (props: Props) => {
           const rowData: SpreadsheetRow[] =
             response?.result?.sheets[0]?.data[0]?.rowData;
           props.onDataLoaded(rowData);
-          console.log(rowData);
         });
       });
 

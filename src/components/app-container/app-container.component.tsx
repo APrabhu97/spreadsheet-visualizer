@@ -70,6 +70,7 @@ export default function AppContainer() {
         drawerOpenState={isDrawerOpen}
         allStudentsList={allStudents}
         onDrawerClosed={() => setDrawerOpen(false)}
+        filteredStudents={(students) => setSelectedStudents(students)}
       />
       <main
         className={clsx(classes.content, {

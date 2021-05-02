@@ -14,15 +14,17 @@ import {
   Theme,
 } from "@material-ui/core";
 import { ChevronLeft } from "@material-ui/icons";
+import cloneDeep from "lodash/cloneDeep";
 import React, { useMemo, useState } from "react";
+import { AllFiltersOption } from "../../models/filters.model";
 import { Student } from "../../models/student.model";
 import { FiltersUtilService } from "../../services/filters-util.service";
 import "./app-drawer.component.scss";
-
 interface Props {
   onDrawerClosed: () => void;
   drawerOpenState: boolean;
   allStudentsList: Student[];
+  filteredStudents: (students: Student[]) => void;
 }
 
 const drawerWidth = 240;
@@ -59,8 +61,43 @@ export default function AppDrawer(props: Props) {
     () => FiltersUtilService.getAllFilters(props.allStudentsList),
     [props.allStudentsList]
   );
-  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setSelectedFilterNames(event.target.value as string[]);
+
+  const [currentFilters, setCurrentFilters] = useState<AllFiltersOption[]>([]);
+
+  const handleAllFilterChange = (
+    event: React.ChangeEvent<{ value: unknown }>
+  ) => {
+    const filterNames = event.target.value as string[];
+    const filters = filterNames
+      .map((filterName) => {
+        return (
+          currentFilters.find((filter) => filter.displayValue === filterName) ||
+          allFilters.find((filter) => filter.displayValue === filterName)!
+        );
+      })
+      .filter(Boolean);
+    const filteredStudents = FiltersUtilService.getFilteredStudents(
+      props.allStudentsList,
+      filters
+    );
+    setSelectedFilterNames(filterNames);
+    setCurrentFilters(filters);
+    props.filteredStudents(filteredStudents);
+  };
+
+  const handleCurrentFilterChange = (
+    event: React.ChangeEvent<{ value: unknown }>,
+    name: string
+  ) => {
+    const filter = currentFilters.find((filter) => filter.field === name)!;
+    filter.selectedValues = event.target.value as string[];
+    const filters = cloneDeep(currentFilters);
+    const filteredStudents = FiltersUtilService.getFilteredStudents(
+      props.allStudentsList,
+      filters
+    );
+    setCurrentFilters(filters);
+    props.filteredStudents(filteredStudents);
   };
   return (
     <Drawer
@@ -86,7 +123,7 @@ export default function AppDrawer(props: Props) {
           multiple
           className="all-filter-select"
           value={selectedFilterNames}
-          onChange={handleChange}
+          onChange={handleAllFilterChange}
           renderValue={(selected) => (selected as []).length + " selected"}
           MenuProps={MenuProps}
         >
@@ -102,10 +139,30 @@ export default function AppDrawer(props: Props) {
       </div>
       <Divider />
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem button key={text}>
-            {/*  <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon> */}
-            <ListItemText primary={text} />
+        {currentFilters.map((filter) => (
+          <ListItem button key={filter.field}>
+            <InputLabel id="filter.displayValue">
+              {filter.displayValue}
+            </InputLabel>
+            <Select
+              labelId={filter.displayValue}
+              id={filter.field}
+              multiple
+              className="all-filter-select"
+              value={filter.selectedValues}
+              onChange={(event) =>
+                handleCurrentFilterChange(event, filter.field)
+              }
+              renderValue={(selected) => (selected as []).length + " selected"}
+              MenuProps={MenuProps}
+            >
+              {filter.values.map((option) => (
+                <MenuItem key={option} value={option}>
+                  <Checkbox checked={filter.selectedValues.includes(option)} />
+                  <ListItemText primary={option} />
+                </MenuItem>
+              ))}
+            </Select>
           </ListItem>
         ))}
       </List>
