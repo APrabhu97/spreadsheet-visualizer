@@ -7,16 +7,17 @@ export interface Student{
 }
 
 export interface StudentDetails{
+    gender: string;
     finalizedUic: string;
-    commuteTimeOptions: CommuteTimeOptions[];
-    roomType: RoomType;
-    roommateNumberPreferences: RoommatesNumber[];
-    roomNumberPreferences: RoomsNumber[];
-    mixedHouse: Choice;
-    roommateSmokes: Choice;
-    roommateDrinks: Choice;
-    knowsCooking: Cooking;
-    foodType: FoodType;
+    commuteTimeOptions: string[];
+    roomType: string;
+    roommateNumberPreferences: string[];
+    roomNumberPreferences: string[];
+    mixedHouse: string;
+    roommateSmokes: string;
+    roommateDrinks: string;
+    knowsCooking: string;
+    foodType: string;
     roommateLanguagePreference: string;
     origin: string;
     gradYear: string;
@@ -28,8 +29,8 @@ export interface StudentDetails{
     intrestedAreas: string;
     socialMediaLinks: string;
     budget: string;
-    smoke: Choice;
-    drink: Choice;
+    smoke: string;
+    drink: string;
 }
 
 export enum CommuteTimeOptions {

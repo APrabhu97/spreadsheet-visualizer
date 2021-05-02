@@ -1,22 +1,17 @@
-import {
-  AppBar,
-  createStyles,
-  IconButton,
-  makeStyles,
-  Theme,
-  Toolbar,
-  Typography,
-} from "@material-ui/core";
-import { Menu } from "@material-ui/icons";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import clsx from "clsx";
-import React from "react";
-import "./header.scss";
+import React, { useState } from "react";
+import { Student } from "../../models/student.model";
+import { SpreadsheetRow } from "../../services/spreadsheet.model";
+import { StudentUtilService } from "../../services/sutdent-util.service";
+import AppBodyComponent from "../app-body/app-body.component";
+import AppDrawer from "../app-drawer/app-drawer.component";
+import { GoogleLogin } from "../gapi-login";
+import Header from "../header/header";
+import "./app-container.component.scss";
 
-interface Props {
-  onDrawerOpened: () => void;
-  drawerOpenState: boolean;
-}
 const drawerWidth = 240;
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -76,34 +71,38 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function Header(props: Props) {
+export default function AppContainer() {
   const classes = useStyles();
+  const [isDrawerOpen, setDrawerOpen] = useState(false);
+  const [selectedStudents, setSelectedStudents] = useState<Student[]>([]);
+  const [allStudents, setAllStudents] = useState<Student[]>([]);
+
+  const onSheetDataLoaded = (data: SpreadsheetRow[]) => {
+    const students = StudentUtilService.toStudent(data);
+    setSelectedStudents(students);
+    setAllStudents(students);
+  };
+
   return (
-    <AppBar
-      position="fixed"
-      className={clsx(classes.appBar, {
-        [classes.appBarShift]: props.drawerOpenState,
-      })}
-    >
-      <Toolbar>
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          onClick={() => {
-            props.onDrawerOpened();
-          }}
-          edge="start"
-          className={clsx(
-            classes.menuButton,
-            props.drawerOpenState && classes.hide
-          )}
-        >
-          <Menu />
-        </IconButton>
-        <Typography variant="h6" noWrap>
-          UIC Housing Form Visualizer
-        </Typography>
-      </Toolbar>
-    </AppBar>
+    <div className={classes.root}>
+      <Header
+        onDrawerOpened={() => setDrawerOpen(true)}
+        drawerOpenState={isDrawerOpen}
+      />
+      <AppDrawer
+        drawerOpenState={isDrawerOpen}
+        allStudentsList={allStudents}
+        onDrawerClosed={() => setDrawerOpen(false)}
+      />
+      <main
+        className={clsx(classes.content, {
+          [classes.contentShift]: isDrawerOpen,
+        })}
+      >
+        <div className={classes.drawerHeader} />
+        <GoogleLogin onDataLoaded={onSheetDataLoaded} />
+        <AppBodyComponent data={selectedStudents} />
+      </main>
+    </div>
   );
 }

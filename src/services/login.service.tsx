@@ -2,7 +2,7 @@ import { gapi } from "gapi-script";
 import { BehaviorSubject, Observable } from "rxjs";
 
 export class LoginService {
-  isSignedIn$ = new BehaviorSubject(false);
+  isSignedIn$ = new BehaviorSubject(Boolean(localStorage.getItem("login")));
 
   public handleSignInClick = () => {
     const loggedIn = this.isSignedIn$.getValue();
@@ -11,9 +11,6 @@ export class LoginService {
     }
     if (!loggedIn) {
       gapi.auth2.getAuthInstance()?.signIn();
-    }
-    if (loggedIn) {
-      console.log("Already Logged In");
     }
   };
 
