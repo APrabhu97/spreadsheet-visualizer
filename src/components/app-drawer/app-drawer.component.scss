@@ -1,7 +1,13 @@
-.all-filter-container{
-    padding: 12px;
- }
- 
- .all-filter-select {
-    width: 100%;
- }
+$drawerWidth: 240px;
+
+.all-filter-container {
+  padding: 12px;
+}
+
+.all-filter-select {
+  width: 100%;
+}
+
+.drawer {
+  width: $drawerWidth;
+}
