@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/spreadsheet-visualizer/static/css/main.f41f12e3.chunk.css",
-    "main.js": "/spreadsheet-visualizer/static/js/main.c214333a.chunk.js",
-    "main.js.map": "/spreadsheet-visualizer/static/js/main.c214333a.chunk.js.map",
-    "runtime-main.js": "/spreadsheet-visualizer/static/js/runtime-main.9d0d98c9.js",
-    "runtime-main.js.map": "/spreadsheet-visualizer/static/js/runtime-main.9d0d98c9.js.map",
-    "static/js/2.c16b9662.chunk.js": "/spreadsheet-visualizer/static/js/2.c16b9662.chunk.js",
-    "static/js/2.c16b9662.chunk.js.map": "/spreadsheet-visualizer/static/js/2.c16b9662.chunk.js.map",
-    "static/js/3.a82aaeae.chunk.js": "/spreadsheet-visualizer/static/js/3.a82aaeae.chunk.js",
-    "static/js/3.a82aaeae.chunk.js.map": "/spreadsheet-visualizer/static/js/3.a82aaeae.chunk.js.map",
+    "main.css": "/spreadsheet-visualizer/static/css/main.1469284c.chunk.css",
+    "main.js": "/spreadsheet-visualizer/static/js/main.3a1c7a96.chunk.js",
+    "main.js.map": "/spreadsheet-visualizer/static/js/main.3a1c7a96.chunk.js.map",
+    "runtime-main.js": "/spreadsheet-visualizer/static/js/runtime-main.7da2a34f.js",
+    "runtime-main.js.map": "/spreadsheet-visualizer/static/js/runtime-main.7da2a34f.js.map",
+    "static/js/2.05d1cf37.chunk.js": "/spreadsheet-visualizer/static/js/2.05d1cf37.chunk.js",
+    "static/js/2.05d1cf37.chunk.js.map": "/spreadsheet-visualizer/static/js/2.05d1cf37.chunk.js.map",
+    "static/js/3.cb90be1d.chunk.js": "/spreadsheet-visualizer/static/js/3.cb90be1d.chunk.js",
+    "static/js/3.cb90be1d.chunk.js.map": "/spreadsheet-visualizer/static/js/3.cb90be1d.chunk.js.map",
     "index.html": "/spreadsheet-visualizer/index.html",
-    "static/css/main.f41f12e3.chunk.css.map": "/spreadsheet-visualizer/static/css/main.f41f12e3.chunk.css.map",
-    "static/js/2.c16b9662.chunk.js.LICENSE.txt": "/spreadsheet-visualizer/static/js/2.c16b9662.chunk.js.LICENSE.txt"
+    "static/css/main.1469284c.chunk.css.map": "/spreadsheet-visualizer/static/css/main.1469284c.chunk.css.map",
+    "static/js/2.05d1cf37.chunk.js.LICENSE.txt": "/spreadsheet-visualizer/static/js/2.05d1cf37.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.9d0d98c9.js",
-    "static/js/2.c16b9662.chunk.js",
-    "static/css/main.f41f12e3.chunk.css",
-    "static/js/main.c214333a.chunk.js"
+    "static/js/runtime-main.7da2a34f.js",
+    "static/js/2.05d1cf37.chunk.js",
+    "static/css/main.1469284c.chunk.css",
+    "static/js/main.3a1c7a96.chunk.js"
   ]
 }
