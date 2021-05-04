@@ -1,3 +1,4 @@
+import { sortBy } from "lodash";
 import { StudentDetails } from "../models/student.model";
 import { SpreadsheetCell, SpreadsheetRow } from "./spreadsheet.model";
 
@@ -103,6 +104,6 @@ export class StudentUtilService {
         }
       });
     }
-    return students;
+    return sortBy(students, (student) => student.name);
   }
 }
