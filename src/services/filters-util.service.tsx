@@ -1,103 +1,148 @@
 import uniq from "lodash/uniq";
 import { AllFiltersOption } from "../models/filters.model";
-import { Student } from "../models/student.model";
+import { StudentDetails } from "../models/student.model";
 
 export class FiltersUtilService {
+  private static getCSFormFilters(): AllFiltersOption[] {
+    return [
+      {
+        displayValue: "Commute Time",
+        values: [],
+        field: "commuteTimeOptions",
+        selectedValues: [],
+      },
+      {
+        displayValue: "Mixed Accommodation",
+        values: [],
+        field: "mixedHouse",
+        selectedValues: [],
+      },
+      {
+        displayValue: "Roommate language preference",
+        values: [],
+        field: "roommateLanguagePreference",
+        selectedValues: [],
+      },
+      {
+        displayValue: "Grad year",
+        values: [],
+        field: "gradYear",
+        selectedValues: [],
+      },
+      {
+        displayValue: "Hobbies",
+        values: [],
+        field: "hobbies",
+        selectedValues: [],
+      },
+      {
+        displayValue: "Company",
+        values: [],
+        field: "company",
+        selectedValues: [],
+      },
+    ];
+  }
+
+  private static getGeneralFormFilters(): AllFiltersOption[] {
+    return [
+      {
+        displayValue: "Level of Study",
+        values: [],
+        field: "levelOfStudy",
+        selectedValues: [],
+      },
+      {
+        displayValue: "Course",
+        values: [],
+        field: "course",
+        selectedValues: [],
+      },
+      {
+        displayValue: "Roommate should be in same branch?",
+        values: [],
+        field: "roommateSameBranchPreference",
+        selectedValues: [],
+      },
+    ];
+  }
+
+  private static getDefaultFormFilters(): AllFiltersOption[] {
+    return [
+      {
+        displayValue: "Gender",
+        values: [],
+        field: "gender",
+        selectedValues: [],
+      },
+      {
+        displayValue: "Room Type",
+        values: [],
+        field: "roomType",
+        selectedValues: [],
+      },
+      {
+        displayValue: "No. of Rooms",
+        values: [],
+        field: "roomNumberPreferences",
+        selectedValues: [],
+      },
+      {
+        displayValue: "No. of Roommates",
+        values: [],
+        field: "roommateNumberPreferences",
+        selectedValues: [],
+      },
+      {
+        displayValue: "Roommate smoking preference",
+        values: [],
+        field: "roommateSmokes",
+        selectedValues: [],
+      },
+      {
+        displayValue: "Roommate drinking preference",
+        values: [],
+        field: "roommateDrinks",
+        selectedValues: [],
+      },
+      {
+        displayValue: "Cooking Knowledge",
+        values: [],
+        field: "knowsCooking",
+        selectedValues: [],
+      },
+      {
+        displayValue: "Food Choice",
+        values: [],
+        field: "foodType",
+        selectedValues: [],
+      },
+      {
+        displayValue: "Origin",
+        values: [],
+        field: "origin",
+        selectedValues: [],
+      },
+      {
+        displayValue: "Housing Budget",
+        values: [],
+        field: "budget",
+        selectedValues: [],
+      },
+    ];
+  }
+
   private static allFilters: AllFiltersOption[] = [
-    { displayValue: "Gender", values: [], field: "gender", selectedValues: [] },
-    {
-      displayValue: "Commute Time",
-      values: [],
-      field: "commuteTimeOptions",
-      selectedValues: [],
-    },
-    {
-      displayValue: "Room Type",
-      values: [],
-      field: "roomType",
-      selectedValues: [],
-    },
-    {
-      displayValue: "No. of Rooms",
-      values: [],
-      field: "roomNumberPreferences",
-      selectedValues: [],
-    },
-    {
-      displayValue: "No. of Roommates",
-      values: [],
-      field: "roommateNumberPreferences",
-      selectedValues: [],
-    },
-    {
-      displayValue: "Mixed Accommodation",
-      values: [],
-      field: "mixedHouse",
-      selectedValues: [],
-    },
-    {
-      displayValue: "Roommate smoking preference",
-      values: [],
-      field: "roommateSmokes",
-      selectedValues: [],
-    },
-    {
-      displayValue: "Roommate drinking preference",
-      values: [],
-      field: "roommateDrinks",
-      selectedValues: [],
-    },
-    {
-      displayValue: "Cooking Knowledge",
-      values: [],
-      field: "knowsCooking",
-      selectedValues: [],
-    },
-    {
-      displayValue: "Food Choice",
-      values: [],
-      field: "foodType",
-      selectedValues: [],
-    },
-    {
-      displayValue: "Roommate language preference",
-      values: [],
-      field: "roommateLanguagePreference",
-      selectedValues: [],
-    },
-    { displayValue: "Origin", values: [], field: "origin", selectedValues: [] },
-    {
-      displayValue: "Grad year",
-      values: [],
-      field: "gradYear",
-      selectedValues: [],
-    },
-    {
-      displayValue: "Hobbies",
-      values: [],
-      field: "hobbies",
-      selectedValues: [],
-    },
-    {
-      displayValue: "Company",
-      values: [],
-      field: "company",
-      selectedValues: [],
-    },
-    {
-      displayValue: "Housing Budget",
-      values: [],
-      field: "budget",
-      selectedValues: [],
-    },
+    ...FiltersUtilService.getDefaultFormFilters(),
+    ...FiltersUtilService.getGeneralFormFilters(),
   ];
 
-  public static getAllFilters(students: Student[]): AllFiltersOption[] {
+  public static getAllFilters(students: StudentDetails[]): AllFiltersOption[] {
     students.forEach((student) => {
       this.allFilters.forEach((filter) => {
-        Array.isArray(student.details[filter.field])
-          ? filter.values.push(...(student.details[filter.field] as any[]))
-          : filter.values.push(student.details[filter.field] as string);
+        Array.isArray(student[filter.field])
+          ? filter.values.push(...(student[filter.field] as any[]))
+          : filter.values.push(student[filter.field] as string);
       });
     });
     this.allFilters.forEach((filter) => {
@@ -107,25 +152,29 @@ export class FiltersUtilService {
   }
 
   public static getFilteredStudents(
-    allStudents: Student[],
+    allStudents: StudentDetails[],
     filters: AllFiltersOption[]
-  ): Student[] {
+  ): StudentDetails[] {
     if (filters.length === 0) {
       return allStudents;
     }
     return allStudents.filter((student) => {
       let isIncluded = true;
       filters.forEach((filter) => {
-        const studentValues = student.details[filter.field];
+        const studentValues = student[filter.field];
         if (filter.selectedValues.length === 0) {
           return;
         }
         if (Array.isArray(studentValues)) {
-          isIncluded = isIncluded && filter.selectedValues.some((selectedValue) =>
-            studentValues.includes(selectedValue)
-          );
+          isIncluded =
+            isIncluded &&
+            filter.selectedValues.some((selectedValue) =>
+              studentValues.includes(selectedValue)
+            );
         } else {
-          isIncluded = isIncluded && filter.selectedValues.includes(studentValues as string);
+          isIncluded =
+            isIncluded &&
+            filter.selectedValues.includes(studentValues as string);
         }
         if (!isIncluded) {
           return;

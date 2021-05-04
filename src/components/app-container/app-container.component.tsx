@@ -1,7 +1,7 @@
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import clsx from "clsx";
 import React, { useState } from "react";
-import { Student } from "../../models/student.model";
+import { StudentDetails } from "../../models/student.model";
 import { SpreadsheetRow } from "../../services/spreadsheet.model";
 import { StudentUtilService } from "../../services/sutdent-util.service";
 import AppBodyComponent from "../app-body/app-body.component";
@@ -51,8 +51,8 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function AppContainer() {
   const classes = useStyles();
   const [isDrawerOpen, setDrawerOpen] = useState(false);
-  const [selectedStudents, setSelectedStudents] = useState<Student[]>([]);
-  const [allStudents, setAllStudents] = useState<Student[]>([]);
+  const [selectedStudents, setSelectedStudents] = useState<StudentDetails[]>([]);
+  const [allStudents, setAllStudents] = useState<StudentDetails[]>([]);
 
   const onSheetDataLoaded = (data: SpreadsheetRow[]) => {
     const students = StudentUtilService.toStudent(data);

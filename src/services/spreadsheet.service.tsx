@@ -11,7 +11,7 @@ export class SpreadsheetService {
   //gapiClient = loadClientAuth2(gapi, this.CLIENT_ID, this.SCOPE);
   getSpreadsheetData = (): Observable<SpreadsheetRow[]> => {
     const params = {
-      spreadsheetId: this.UIC_CS_SHEET, //given in url of the sheet
+      spreadsheetId: this.UIC_GENERAL_SHEET, //given in url of the sheet
       ranges: ["Form Responses 1"], //names of the page(given in the bottom of google sheets).
       includeGridData: true,
     };

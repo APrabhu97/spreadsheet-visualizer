@@ -17,14 +17,14 @@ import { ChevronLeft } from "@material-ui/icons";
 import cloneDeep from "lodash/cloneDeep";
 import React, { useMemo, useState } from "react";
 import { AllFiltersOption } from "../../models/filters.model";
-import { Student } from "../../models/student.model";
+import { StudentDetails } from "../../models/student.model";
 import { FiltersUtilService } from "../../services/filters-util.service";
 import "./app-drawer.component.scss";
 interface Props {
   onDrawerClosed: () => void;
   drawerOpenState: boolean;
-  allStudentsList: Student[];
-  filteredStudents: (students: Student[]) => void;
+  allStudentsList: StudentDetails[];
+  filteredStudents: (students: StudentDetails[]) => void;
 }
 
 const drawerWidth = 240;

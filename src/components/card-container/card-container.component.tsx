@@ -9,7 +9,7 @@ interface Props {
 
 export default function CardContainer(props: Props) {
   const cards = props.cardDetails?.map((card) => (
-    <span className="card" key={card.phoneNumber}>
+    <span className="card" key={card.id+card.name}>
       <CardComponent cardView={card} />
     </span>
   ));

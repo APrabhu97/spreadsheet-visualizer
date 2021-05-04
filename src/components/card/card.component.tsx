@@ -1,7 +1,8 @@
-import { Card, CardContent, Typography } from "@material-ui/core";
+import { Button, Card, CardActions, CardContent, Typography } from "@material-ui/core";
 import React from "react";
 import { CardDetail } from "./card.model";
 import "./card.component.scss";
+import LearnMoreModal from "../learn-more-modal/learn-more-modal.component";
 interface Props {
   cardView: CardDetail;
 }
@@ -27,6 +28,9 @@ export default function CardComponent(props: Props) {
         </Typography>
         {props.cardView.emailId}
       </CardContent>
+      <CardActions>
+        <LearnMoreModal student={props.cardView.student}/>
+      </CardActions>
     </Card>
   );
 }

@@ -1,12 +1,17 @@
-export interface Student{
+/* export interface Student{
+    id: string;
     name: string;
     email: string;
     phone: string;
     gender: string;
     details: StudentDetails;
-}
+} */
 
 export interface StudentDetails{
+    id: string;
+    name: string;
+    email: string;
+    phone: string;
     gender: string;
     finalizedUic: string;
     commuteTimeOptions: string[];
@@ -31,6 +36,10 @@ export interface StudentDetails{
     budget: string;
     smoke: string;
     drink: string;
+    levelOfStudy: string;
+    course: string;
+    roommateSameBranchPreference: string;
+
 }
 
 export enum CommuteTimeOptions {

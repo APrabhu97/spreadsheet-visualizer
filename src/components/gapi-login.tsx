@@ -56,8 +56,10 @@ export const GoogleLogin = (props: Props) => {
       process.env.REACT_APP_SHEET_CLIENT_ID!,
       process.env.REACT_APP_SHEET_SCOPE!
     );
+    const UIC_CS_SHEET = "1ysrPxFihdRTRTHc4tKQZnmjCeq_JoSqEK4IE9EPnJX8";
+    const UIC_GENERAL_SHEET = "1iRbHoRSJaKoJNDCKeTZ2kREXPHQL7qZma73-AfQReO0";
     const params = {
-      spreadsheetId: "1ysrPxFihdRTRTHc4tKQZnmjCeq_JoSqEK4IE9EPnJX8", //given in url of the sheet
+      spreadsheetId: UIC_GENERAL_SHEET, //given in url of the sheet
       ranges: ["Form Responses 1"], //names of the page(given in the bottom of google sheets).
       includeGridData: true,
     };
